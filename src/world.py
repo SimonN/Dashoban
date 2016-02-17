@@ -33,6 +33,15 @@ class World:
         assert ret != [], "the level lacks a player starting point '@'"
         return ret
 
+    def diamondsLeft(self):
+        ret = 0
+        # I'm sure there is nice stuff in the stdlib for map/reduce
+        for y in range(0, self._yl):
+            for x in range(0, self._xl):
+                if self.get(x, y) == '.':
+                    ret += 1
+        return ret
+
     def draw(self):
         for line in self._arr:
             for char in line:
