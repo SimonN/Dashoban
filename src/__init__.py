@@ -1,5 +1,6 @@
 from world import *
+from levelio import *
 
 def runMain():
-    world = World(3, 3)
-    print world._text
+    world = openLevel("./levels/tut.txt")
+    world.draw();
