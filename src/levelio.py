@@ -10,6 +10,5 @@ def openLevel(filename):
         xl = max(xl, len(line.strip()))
         charArr += [line.strip()]
         yl += 1
-    world = World(xl, yl)
-    world.arr = charArr
+    world = World(xl, yl, charArr)
     return world
