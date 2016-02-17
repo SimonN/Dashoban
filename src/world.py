@@ -13,13 +13,25 @@ class World:
     # The world can be legally queried at any coordinate, even outside
     def get(self, x, y):
         if 0 <= x < self._xl and 0 <= y < self._yl:
-            return self.arr[y][x]
+            return self._arr[y][x]
         else:
             return '#'
 
     def set(self, x, y, char):
-        assert get(self, x, y) != '#'
-        arr[y][x] = char
+        assert self.get(x, y) != '#'
+        self._arr[y][x] = char
+
+    def findPlayer(self):
+        ret = []
+        for y in range(0, self._yl):
+            for x in range(0, self._xl):
+                if (self.get(x, y) == '@'):
+                    assert ret == [], """can't have >= 1 player '@' in level.
+                        Found one at %d,%d, another now at %d,%d.
+                        """ % (ret[0], ret[1], x, y)
+                    ret = [x, y]
+        assert ret != [], "the level lacks a player starting point '@'"
+        return ret
 
     def draw(self):
         for line in self._arr:
@@ -27,7 +39,9 @@ class World:
                 sys.stdout.write(char)
             print #newline
 
-    def _arrayOfArrayOfChar(self, inputArr):
+    # Input array holds longer strings.
+    # Output array is rectangular, holds arrays of one-char strings
+    def _arrayOfArrayOfChar(self, arrOfString):
         assert self._xl > 0
         assert self._yl > 0
         arr = []
@@ -35,7 +49,7 @@ class World:
             arr += [[]]
             for x in range(0, self._xl):
                 try:
-                    arr[y] += inputArr[y][x]
+                    arr[y] += arrOfString[y][x]
                 except IndexError:
                     arr[y] += ' '
             assert len(arr[y]) == self._xl

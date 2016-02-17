@@ -1,6 +1,6 @@
-from world import *
 from levelio import *
+from state import *
+from world import *
 
 def runMain():
-    world = openLevel("./levels/tut.txt")
-    world.draw();
+    state = GameState(openLevel("./levels/tut.txt"))
