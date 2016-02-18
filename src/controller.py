@@ -14,14 +14,15 @@ class Controller:
     def interactiveLoop(self):
         self._drawWorld()
         while True:
-            chars = self._waitForKeyboardInput()
-            if chars == 'q':
-                break
-            try:
-                direc = {'i' : 0, 'o' : 1, 'e' : 2, 'n' : 3}[chars]
-                self._state.movePlayer(direc)
-            except KeyError:
-                pass
+            for char in self._waitForKeyboardInput():
+                if char == 'q':
+                    break
+                try:
+                    direc = {'i' : 0, 'o' : 1, 'e' : 2, 'n' : 3,
+                             'w' : 0, 'a' : 3, 's' : 2, 'd' : 1}[char]
+                    self._state.movePlayer(direc)
+                except KeyError:
+                    pass
             self._drawWorld()
             if self._state.done():
                 print "You have collected all diamonds! You win!"
@@ -35,7 +36,7 @@ class Controller:
     def _waitForKeyboardInput(self):
         print "Diamonds '.' left to collect: %d" \
             % self._state.world().diamondsLeft()
-        print "Move around with [n], [e], [i], [o], or [q] to quit."
+        print "Move around with WASD or NEIO, or [q] to quit."
         return raw_input("> ")
 
 def unittestController():
