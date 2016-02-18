@@ -2,9 +2,11 @@ Dashoban
 
 About:
     Dashoban is a discrete puzzle game, inspired by Sokoban and Kye.
+    I've only taken a rudimentary look at Python 2.6. I haven't yet dived
+    into the standard library, or explored idiomatic Python constructs.
 
 Install:
-    Make sure you have Python installed.
+    Make sure you have Python 2.6 installed.
     From Dashoban's root directory, run:
         python .
 
