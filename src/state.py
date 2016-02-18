@@ -44,8 +44,8 @@ class GameState:
 
     def _collectDiamond(self, plusX, plusY):
         self._movePlayerLeaveSpace(plusX, plusY)
-        if self._world.diamondsLeft == 0:
-            _done = True
+        if self._world.diamondsLeft() == 0:
+            self._done = True
 
     def _pushCrate(self, plusX, plusY):
         char = self._world.get(self._playerX + plusX,

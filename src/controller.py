@@ -12,8 +12,8 @@ class Controller:
         self._state = GameState(openLevel(filename))
 
     def interactiveLoop(self):
+        self._drawWorld()
         while True:
-            self._drawWorld()
             chars = self._waitForKeyboardInput()
             if chars == 'q':
                 break
@@ -22,6 +22,10 @@ class Controller:
                 self._state.movePlayer(direc)
             except KeyError:
                 pass
+            self._drawWorld()
+            if self._state.done():
+                print "You have collected all diamonds! You win!"
+                break
 
     def _drawWorld(self):
         for _ in range(self._state.world().yl(), 25):
@@ -29,6 +33,8 @@ class Controller:
         self._state.draw()
 
     def _waitForKeyboardInput(self):
+        print "Diamonds '.' left to collect: %d" \
+            % self._state.world().diamondsLeft()
         print "Move around with [n], [e], [i], [o], or [q] to quit."
         return raw_input("> ")
 
