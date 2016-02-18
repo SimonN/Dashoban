@@ -1,4 +1,8 @@
-
+# This implements physics and game rules, and interprets commands
+# to the player character. It doens't gather the commands
+# from the keyboard.
+#
+# Movement of the player: 0 = up, 1 = right, 2 = down, 3 = left
 
 class GameState:
     def __init__(self, world):
@@ -6,6 +10,9 @@ class GameState:
         self._playerX = self._world.findPlayer()[0]
         self._playerY = self._world.findPlayer()[1]
         self._done    = False
+
+    def world(self):
+        return self._world
 
     def done(self):
         return self._done
@@ -43,6 +50,8 @@ class GameState:
     def _pushCrate(self, plusX, plusY):
         char = self._world.get(self._playerX + plusX,
                                self._playerY + plusY)
+        if (char == '-' and plusY != 0) or (char == '|' and plusX != 0):
+            return
         self._world.set(self._playerX + 2 * plusX,
                         self._playerY + 2 * plusY, char)
         self._movePlayerLeaveSpace(plusX, plusY)

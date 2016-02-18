@@ -10,6 +10,9 @@ class World:
         self._yl  = yl
         self._arr = self._arrayOfArrayOfChar(arrOfString)
 
+    def yl(self):
+        return self._yl
+
     # The world can be legally queried at any coordinate, even outside
     def get(self, x, y):
         if 0 <= x < self._xl and 0 <= y < self._yl:
